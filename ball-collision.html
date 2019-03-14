@@ -16,16 +16,25 @@
     var ball = new ball();
     var ballTwo = new ballTwo();
     var d;
+    function preload(){
+      img = ('pacman.svg.png');
+    }
       function setup(){
         createCanvas(w,h);
       }
+      hit=false;
       function draw(){
         background('black');
         ball.show();
         ball.move();
         ballTwo.show();
         ballTwo.move();
-        ballTwo.contact()
+        ballTwo.contact();
+        collideCircleCircle(ball.x,ball.y,ball.userWidth,ballTwo.x,ballTwo.y,ballTwo.userWidth);
+      }
+      if(hit = true){
+        ballTwo.x = Math.random(1000);
+        ball
       }
       function ball(){
        
@@ -35,7 +44,7 @@
         var speed = 10;
         this.show = function(){
         fill(color('red'));
-        ellipse(this.x,this.y,userWidth,userWidth);
+        ellipse(,this.x,this.y,userWidth,userWidth);
         }
         this.move = function(){
           if((keyIsDown(87))&&(this.y > 0)){
@@ -45,23 +54,24 @@
             this.y += speed;
           }
           if((keyIsDown(65))&&(this.x > 0)){
-            this.x -= speed;
+            rotate(-10);
           }
           if((keyIsDown(68))&&(this.x < w - userWidth)){
-            this.x += speed;
+            rotate(10);
           }
+          imageMode(CENTER);
         }
       }
       function ballTwo(){
-        this.x = 200;
-        this.y = 200;
+        this.x = Math.random(1000);
+        this.y = Math.random(1000);
         userWidth = 50;
         var speed  = 10;
         this.show = function(){
             fill(color('blue'));
-            image(pacman.png,this.x,this.y,userWidth,userWidth);
+            ellipse(,this.x,this.y,userWidth,userWidth);
         }
-        this.move = function(){
+        /*this.move = function(){
             if((keyIsDown(73))&&(this.y > 0)){
                 this.y -= speed;
             }
@@ -73,15 +83,14 @@
           }
           if((keyIsDown(76))&&(this.x < w - userWidth)){
             this.x += speed;
-          }
-        }
+          }*/
+        
         this.contact = function(){
             d= dist(this.x,this.y,ball.x,ball.y);
             if(d < 40){
-                noLoop();
-                window.alert('Game Over');
+              
             }
-        }
+        
       }
     </script>
   </body>
